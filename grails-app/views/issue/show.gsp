@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="layout" content="main" />
-        <g:set var="entityName" value="${message(code: 'task.label', default: 'Task')}" />
+        <g:set var="entityName" value="${message(code: 'issue.label', default: 'Issue')}" />
         <title><g:message code="default.show.label" args="[entityName]" /></title>
     </head>
     <body>
@@ -19,14 +19,15 @@
                 <g:if test="${flash.message}">
                     <div class="message" role="status">${flash.message}</div>
                 </g:if>
-                <f:field property="title" label="Title: "> ${task.title}</f:field>
-                <f:field property="description" label="Description: "> ${task.description}</f:field>
-                <f:field property="startDate" label="Start Date: "><g:formatDate date="${task.startDate}" type="datetime" style="MEDIUM"></g:formatDate></f:field>
-                <f:field property="dateLastChange" label="Last updated: "><g:formatDate date="${task.dateLastChange}" type="datetime" style="MEDIUM"></g:formatDate></f:field>
-                <f:field property="status" label="Status: "> ${task.status}</f:field>
-                <f:field property="userId" label="Created by: "> ${ com.ProjectManager.auth.User.get(task.userId).username}</f:field>
-                <f:field property="responsibleUserId" label="Responsible User:">${com.ProjectManager.auth.User.get(task.responsibleUserId).username}</f:field>
-                <f:field property="project" label="Project: "> ${task.project.title}</f:field>
+                <f:field property="name" label="Name: "> ${issue.name}</f:field>
+                <f:field property="type" label="Type: "> ${issue.type}</f:field>
+                <f:field property="priority" label="Priority: "><g:formatDate date="${issue.priority}" type="datetime" style="MEDIUM"></g:formatDate></f:field>
+                <f:field property="description" label="Description: "><g:formatDate date="${issue.description}" type="datetime" style="MEDIUM"></g:formatDate></f:field>
+                <f:field property="status" label="Status: "> ${issue.status}</f:field>
+                <f:field property="ownerId" label="Owner: "> ${ com.ProjectManager.auth.User.get(issue.ownerId).username}</f:field>
+                <f:field property="assigneeId" label="Assignee:">${com.ProjectManager.auth.User.get(issue.AssigneeId).username}</f:field>
+                <f:field property="created" label="Created: "> ${issue.created}</f:field>
+                <f:field property="updated" label="Updated: "> ${issue.updated}</f:field>
             </div>
             <div class="col-md-12" style="background-color: #888888">
                 <g:form resource="${this.task}" method="DELETE">

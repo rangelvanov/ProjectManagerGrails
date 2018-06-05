@@ -1,49 +1,36 @@
 <%@ page import="com.ProjectManager.auth.User" %>
 
-<div class="fieldcontain" >
-    <label for="title">
-        Title
+<div class="fieldcontain">
+    <label for="name">
+        Name
     </label>
-    <g:textField name="title" value="${project.title}"/>
+    <g:textField name="name" value="${project.name}"/>
 </div>
 
 <div class="fieldcontain">
-    <label for="description">
-        Description
+    <label for="key">
+        Key
     </label>
-    <g:textArea name="description" value="${project.description}" />
+    <g:textField name="key" value="${project.key}"/>
 </div>
 
-<%--
 <div class="fieldcontain">
-    <label for="userId">
-        Created by
+    <label for="ownerId">
+        Owner
     </label>
-    <g:select name="userId" from="${User.getAll()}" optionKey="id" optionValue="username" value="${project.userId}"/>
+    <g:select name="ownerId" from="${User.getAll()}" optionKey="id" optionValue="username" value="${project.ownerId}"/>
 </div>
 
---%>
-<g:hiddenField name="userId" value="${project.userId}"></g:hiddenField>
-
 <div class="fieldcontain">
-    <label for="startDate">
-        Start Date
+    <label for="type">
+        Type
     </label>
-    <g:datePicker name="startDate" value="${project.startDate}"/>
+    <g:select name="type" from="${projectmanager.ProjectType.values()}" value="${project.type}"/>
 </div>
 
-<%--
 <div class="fieldcontain">
-    <label for="dateLastChange">
-        Last Changed
+    <label for="category">
+        Category
     </label>
-    <g:datePicker name="dateLastChange" value="${project.dateLastChange}"/>
-</div>
---%>
-
-<div class="fieldcontain">
-    <label for="status">
-        Status
-    </label>
-    <g:select name="status" from="${projectmanager.StatusP.values()}" value="${project.status}"/>
+    <g:select name="category" from="${projectmanager.Category.values()}" value="${project.category}"/>
 </div>

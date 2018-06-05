@@ -33,16 +33,16 @@ class BootStrap {
         }
 
 
-        def project1 = Project.findOrSaveWhere(title: 'Grails Project',  description: 'desc1', userId: 2,startDate: new Date(),dateLastChange: new Date(), status: StatusP.Development)
-        def project2 = Project.findOrSaveWhere(title: 'Java Project'   , description: 'desc1', userId: 2,startDate: new Date(),dateLastChange: new Date(), status: StatusP.Development)
-        def project3 = Project.findOrSaveWhere(title: 'Groovy Project',  description: 'desc1', userId: 2,startDate: new Date(),dateLastChange: new Date(), status: StatusP.Development)
-        def project4 = Project.findOrSaveWhere(title: 'Eclipse Project',  description: 'desc1', userId: 2,startDate: new Date(),dateLastChange: new Date(), status: StatusP.Development)
+//        def project1 = Project.findOrSaveWhere(name: 'Grails Project',  key: 'desc1', type: ProjectType.Software, ownerId: 2, category: Category.Development)
+//        def project2 = Project.findOrSaveWhere(name: 'Java Project'   , key: 'desc1', type: ProjectType.Software, ownerId: 2, category: Category.Development)
+//        def project3 = Project.findOrSaveWhere(name: 'Groovy Project',  key: 'desc1', type: ProjectType.Software, ownerId: 2, category: Category.Development)
+//        def project4 = Project.findOrSaveWhere(name: 'Eclipse Project', key: 'desc1', type: ProjectType.Software, ownerId: 2, category: Category.Development)
 
 
-        def task1 = Task.findOrSaveWhere(title:'task1', description:'desc1',responsibleUserId: 2, userId: 2, startDate: new Date(), dateLastChange: new Date(), status: StatusT.Pending, project:project1 )
-        def task2 = Task.findOrSaveWhere(title:'task2', description:'desc1',responsibleUserId: 2, userId: 2, startDate: new Date(), dateLastChange: new Date(), status: StatusT.Pending, project:project1 )
-        def task3 = Task.findOrSaveWhere(title:'task3', description:'desc1',responsibleUserId: 3, userId: 2, startDate: new Date(), dateLastChange: new Date(), status: StatusT.Pending, project:project2 )
-        def task4 = Task.findOrSaveWhere(title:'task4', description:'desc1',responsibleUserId: 3, userId: 2, startDate: new Date(), dateLastChange: new Date(), status: StatusT.Pending, project:project4 )
+//        def task1 = Issue.findOrSaveWhere(title:'task1', description:'desc1',responsibleUserId: 2, userId: 2, startDate: new Date(), dateLastChange: new Date(), status: StatusT.Pending, project:project1 )
+//        def task2 = Issue.findOrSaveWhere(title:'task2', description:'desc1',responsibleUserId: 2, userId: 2, startDate: new Date(), dateLastChange: new Date(), status: StatusT.Pending, project:project1 )
+//        def task3 = Issue.findOrSaveWhere(title:'task3', description:'desc1',responsibleUserId: 3, userId: 2, startDate: new Date(), dateLastChange: new Date(), status: StatusT.Pending, project:project2 )
+//        def task4 = Issue.findOrSaveWhere(title:'task4', description:'desc1',responsibleUserId: 3, userId: 2, startDate: new Date(), dateLastChange: new Date(), status: StatusT.Pending, project:project4 )
     }
     def destroy = {
     }

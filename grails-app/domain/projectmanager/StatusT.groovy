@@ -2,7 +2,12 @@ package projectmanager
 
 enum StatusT {
 
-    Pending,
+    Approved,
+    Cancelled,
+    Closed,
+    Done,
     InProgress,
-    Finished
+    Open,
+    Resolved,
+    Todo
 }

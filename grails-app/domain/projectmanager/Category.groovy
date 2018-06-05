@@ -1,6 +1,6 @@
 package projectmanager
 
-enum StatusP {
+enum Category {
     Development,
     Test,
     Production

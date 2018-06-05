@@ -3,10 +3,10 @@ package projectmanager
 class Comment {
 
     Integer userId
-    String commentContent
-    Date date
+    String content
+    Date created
 
-    static belongsTo = [task: Task]
+    static belongsTo = [task: Issue]
     static constraints = {
     }
 }

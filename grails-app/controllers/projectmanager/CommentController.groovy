@@ -1,10 +1,8 @@
 package projectmanager
 
-import com.ProjectManager.auth.User
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
-import grails.plugin.springsecurity.SpringSecurityUtils
 
 class CommentController {
 
@@ -39,14 +37,14 @@ class CommentController {
         }
 
         def loggedUserId = springSecurityService.currentUserId
-        def tempTask = Task.findById(taskId)
+        def tempTask = Issue.findById(taskId)
         if(tempTask == null){
-            redirect(action: 'index', controller: 'task')
+            redirect(action: 'index', controller: 'issue')
             return
         }
-        if(loggedUserId == tempTask.userId || loggedUserId == tempTask.responsibleUserId){
+        if(loggedUserId == tempTask.ownerId || loggedUserId == tempTask.assigneeId){
             comment.userId = springSecurityService.currentUserId
-            comment.date = new Date()
+            comment.created = new Date()
             comment.task = tempTask
             taskId = null;
             try {
@@ -58,7 +56,7 @@ class CommentController {
             request.withFormat {
                 form multipartForm {
                     flash.message = message(code: 'default.created.message', args: [message(code: 'comment.label', default: 'Comment'), comment.id])
-                    redirect(action: 'show', controller: 'task', id: tempTask.id)
+                    redirect(action: 'show', controller: 'issue', id: tempTask.id)
                     //    redirect comment
                 }
                 '*' { respond comment, [status: CREATED] }
@@ -66,8 +64,8 @@ class CommentController {
 
         }
         else {
-            redirect(action: 'index', controller: 'task')
-            flash.message = "You cannot comment this task!"
+            redirect(action: 'index', controller: 'issue')
+            flash.message = "You cannot comment this issue!"
             return
         }
 

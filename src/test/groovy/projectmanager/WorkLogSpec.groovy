@@ -3,7 +3,7 @@ package projectmanager
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class StatusPSpec extends Specification implements DomainUnitTest<StatusP> {
+class WorkLogSpec extends Specification implements DomainUnitTest<WorkLog> {
 
     def setup() {
     }

@@ -3,7 +3,7 @@ package projectmanager
 import grails.testing.gorm.DomainUnitTest
 import spock.lang.Specification
 
-class TaskSpec extends Specification implements DomainUnitTest<Task> {
+class IssuePrioritySpec extends Specification implements DomainUnitTest<IssuePriority> {
 
     def setup() {
     }
