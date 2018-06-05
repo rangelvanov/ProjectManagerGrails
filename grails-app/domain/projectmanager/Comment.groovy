@@ -2,11 +2,9 @@ package projectmanager
 
 class Comment {
 
-    Integer userId
+    Long userId
     String content
     Date created
 
-    static belongsTo = [task: Issue]
-    static constraints = {
-    }
+    static belongsTo = [issue: Issue]
 }
