@@ -36,26 +36,11 @@ class IssueController {
     def show(Long id) {
 
         Issue issue = Issue.findById(id)
-        User loggedUser = User.get(springSecurityService.currentUserId)
-        if (issue == null) {
-            notFound()
-            return
-        }
-        if (SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
-            respond issueService.get(id)
-            return
-        }
 
-        if (loggedUser.id == issue.ownerId || loggedUser.id == issue.assigneeId) {
-            respond issueService.get(id)
-            return
-        } else {
-            redirect(action: "index", controller: "issue")
-            flash.message = "Sorry! You are not allowed to access this issue!"
-            return
-        }
         def allComments = issue.comments
-        [allComments: allComments]
+        def allWorkLog = issue.workLogs
+
+        render view: "show", model: [issue: issueService.get(id),allComments: allComments, workLogs: allWorkLog]
     }
 
     @Secured(['ROLE_ADMIN', 'ROLE_SUPERUSER'])

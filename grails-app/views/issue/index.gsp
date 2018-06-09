@@ -29,6 +29,7 @@
                 <g:sortableColumn title="Status" property="status"/>
                 <g:sortableColumn title="Updated" property="updated"/>
 
+
                 </thead>
 
                 <tbody>

@@ -16,7 +16,8 @@ class Issue {
 
 
     static belongsTo = [project: Project]
-    static hasMany = [comments: Comment]
+    static hasMany = [comments: Comment,workLogs: WorkLog]
+
 
 
 }

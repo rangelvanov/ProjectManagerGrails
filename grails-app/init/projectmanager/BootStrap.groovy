@@ -33,10 +33,10 @@ class BootStrap {
         }
 
 
-//        def project1 = Project.findOrSaveWhere(name: 'Grails Project',  key: 'desc1', type: ProjectType.Software, ownerId: 2, category: Category.Development)
-//        def project2 = Project.findOrSaveWhere(name: 'Java Project'   , key: 'desc1', type: ProjectType.Software, ownerId: 2, category: Category.Development)
-//        def project3 = Project.findOrSaveWhere(name: 'Groovy Project',  key: 'desc1', type: ProjectType.Software, ownerId: 2, category: Category.Development)
-//        def project4 = Project.findOrSaveWhere(name: 'Eclipse Project', key: 'desc1', type: ProjectType.Software, ownerId: 2, category: Category.Development)
+        def project1 = Project.findOrSaveWhere(name: 'Grails Project',  key: 'desc1', type: ProjectType.Software, ownerId: 2, category: Category.Development)
+        def project2 = Project.findOrSaveWhere(name: 'Java Project'   , key: 'desc1', type: ProjectType.Software, ownerId: 2, category: Category.Development)
+        def project3 = Project.findOrSaveWhere(name: 'Groovy Project',  key: 'desc1', type: ProjectType.Software, ownerId: 2, category: Category.Development)
+        def project4 = Project.findOrSaveWhere(name: 'Eclipse Project', key: 'desc1', type: ProjectType.Software, ownerId: 2, category: Category.Development)
 
 
 //        def task1 = Issue.findOrSaveWhere(title:'task1', description:'desc1',responsibleUserId: 2, userId: 2, startDate: new Date(), dateLastChange: new Date(), status: StatusT.Pending, project:project1 )

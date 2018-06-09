@@ -34,33 +34,15 @@ class ProjectController {
 
     @Secured(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_SUPERUSER'])
     def show(Long id) {
-        Project project = Project.findById(id)
-        User loggedUser = User.get(springSecurityService.currentUserId)
-        if (project == null) {
-            notFound()
-            return
-        }
-        if (SpringSecurityUtils.ifAllGranted("ROLE_ADMIN")) {
-            respond projectService.get(id)
-            return
-        }
-        if (project.ownerId == loggedUser.id) {
-            respond projectService.get(id)
-            return
-        } else {
-            for (Issue task : project.tasks) {
+        def issuesToUse
+       def project = Project.findById(id)
+        long loggedUser = springSecurityService.currentUserId
+//        issuesToUse = Issue.findAllByOwnerIdAndAssigneeIdAndProject(loggedUser, loggedUser, projectService.get(id))
+        issuesToUse = Issue.findAllByProject(project)
 
-                if (task.ownerId == loggedUser.id || task.assigneeId == loggedUser.id) {
-                    respond projectService.get(id)
-                    return
-                }
-            }
-        }
+        render view: "show", model: [project: projectService.get(id), issues: issuesToUse]
 
-        redirect(action: "index", controller: "project")
-        flash.message = "Sorry! You are not allowed to access this project!"
     }
-
     @Secured(['ROLE_ADMIN', 'ROLE_SUPERUSER'])
     def create() {
         respond new Project(params)

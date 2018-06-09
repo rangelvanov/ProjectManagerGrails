@@ -5,25 +5,24 @@ import grails.validation.ValidationException
 
 import static org.springframework.http.HttpStatus.*
 
-class CommentController {
+class WorkLogController {
 
-    CommentService commentService
+    WorkLogService workLogService
     Long idIssue
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def springSecurityService
 
-
-    @Secured(['ROLE_ADMIN', 'ROLE_SUPERUSER'])
+    @Secured(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_SUPERUSER'])
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond commentService.list(params), model: [commentCount: commentService.count()]
+        respond workLogService.list(params), model: [workLogCount: workLogService.count()]
     }
 
-    @Secured(['ROLE_ADMIN', 'ROLE_SUPERUSER'])
+    @Secured(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_SUPERUSER'])
     def show(Long id) {
-        respond commentService.get(id)
+        respond workLogService.get(id)
     }
 
     @Secured(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_SUPERUSER'])
@@ -31,22 +30,23 @@ class CommentController {
         println("Issue id from param __ " + params.issueId)
         idIssue = Long.parseLong(params.issueId)
         println("Issue actual id from param __ " + idIssue)
-        respond new Comment(params)
+        respond new WorkLog(params)
     }
 
     @Secured(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_SUPERUSER'])
-    def save(Comment comment) {
-        if (comment == null) {
+    def save(WorkLog workLog) {
+        if (workLog == null) {
             notFound()
             return
         }
 
-        if(comment.content.equals(null)){
-            redirect(action: 'create', controller: 'Comment',  params: [issueId: idIssue])
+        if(workLog.comment.equals(null) || workLog.timeSpent.equals(null)){
+            redirect(action: 'create', controller: 'WorkLog',  params: [issueId: idIssue])
             return
         }
 
         println("idIssue in safe__ " + idIssue)
+
         Long loggedUserId = springSecurityService.currentUserId
         def issueTemp = Issue.findById(idIssue)
         println("Issue koeto shte bude komentirano __" + issueTemp.name)
@@ -55,75 +55,73 @@ class CommentController {
             return
         }
         if (loggedUserId == issueTemp.ownerId || loggedUserId == issueTemp.assigneeId) {
-            comment.setUserId(loggedUserId)
-            comment.setCreated(new Date())
-            comment.setIssue(issueTemp)
+            workLog.setUserId(loggedUserId)
+            workLog.setCreated(new Date())
+            workLog.setIssue(issueTemp)
             idIssue = 0
+
             try {
-                commentService.save(comment)
+                workLogService.save(workLog)
                 idIssue = 0
             } catch (ValidationException e) {
-                respond comment.errors, view: 'create'
+                respond workLog.errors, view: 'create'
                 return
             }
+
             request.withFormat {
                 form multipartForm {
-                    flash.message = message(code: 'default.created.message', args: [message(code: 'comment.label', default: 'Comment'), comment.id])
+                    flash.message = message(code: 'default.created.message', args: [message(code: 'workLog.label', default: 'WorkLog'), workLog.id])
                     redirect(action: 'show', controller: 'Issue', id: issueTemp.id)
-                    //    redirect comment
                 }
-                '*' { respond comment, [status: CREATED] }
+                '*' { respond workLog, [status: CREATED] }
             }
-
-        } else {
+        }else {
             redirect(action: 'index', controller: 'Issue')
-            flash.message = "You cannot comment this issue!"
+            flash.message = "You cannot log wok this issue!"
             return
         }
-
-
     }
 
-    @Secured(['ROLE_ADMIN', 'ROLE_SUPERUSER'])
+    @Secured(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_SUPERUSER'])
     def edit(Long id) {
-        respond commentService.get(id)
+        respond workLogService.get(id)
     }
 
-    @Secured(['ROLE_ADMIN', 'ROLE_SUPERUSER'])
-    def update(Comment comment) {
-        if (comment == null) {
+    @Secured(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_SUPERUSER'])
+    def update(WorkLog workLog) {
+        if (workLog == null) {
             notFound()
             return
         }
 
         try {
-            commentService.save(comment)
+            workLogService.save(workLog)
         } catch (ValidationException e) {
-            respond comment.errors, view: 'edit'
+            respond workLog.errors, view: 'edit'
             return
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'comment.label', default: 'Comment'), comment.id])
-                redirect comment
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'workLog.label', default: 'WorkLog'), workLog.id])
+                redirect workLog
             }
-            '*' { respond comment, [status: OK] }
+            '*' { respond workLog, [status: OK] }
         }
     }
 
-    @Secured(['ROLE_ADMIN', 'ROLE_SUPERUSER'])
+    @Secured(['ROLE_ADMIN', 'ROLE_USER', 'ROLE_SUPERUSER'])
     def delete(Long id) {
         if (id == null) {
             notFound()
             return
         }
 
-        commentService.delete(id)
+        workLogService.delete(id)
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'comment.label', default: 'Comment'), id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'workLog.label', default: 'WorkLog'), id])
                 redirect action: "index", method: "GET"
             }
             '*' { render status: NO_CONTENT }
@@ -133,7 +131,7 @@ class CommentController {
     protected void notFound() {
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'comment.label', default: 'Comment'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'workLog.label', default: 'WorkLog'), params.id])
                 redirect action: "index", method: "GET"
             }
             '*' { render status: NOT_FOUND }

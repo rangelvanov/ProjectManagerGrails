@@ -2,12 +2,12 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <g:set var="entityName" value="${message(code: 'comment.label', default: 'Comment')}"/>
+    <g:set var="entityName" value="${message(code: 'workLog.label', default: 'WorkLog')}"/>
     <title><g:message code="default.create.label" args="[entityName]"/></title>
 </head>
 
 <body>
-<a href="#create-comment" class="skip" tabindex="-1"><g:message code="default.link.skip.label"
+<a href="#create-workLog" class="skip" tabindex="-1"><g:message code="default.link.skip.label"
                                                                 default="Skip to content&hellip;"/></a>
 
 <div class="nav" role="navigation">
@@ -17,29 +17,31 @@
     </ul>
 </div>
 
-<div id="create-comment" class="content scaffold-create" role="main">
+<div id="create-workLog" class="content scaffold-create" role="main">
     <h1><g:message code="default.create.label" args="[entityName]"/></h1>
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
     </g:if>
-    <g:hasErrors bean="${this.comment}">
-
+    <g:hasErrors bean="${this.workLog}">
         <ul class="errors" role="alert">
-            <g:eachError bean="${this.comment}" var="error">
+            <g:eachError bean="${this.workLog}" var="error">
                 <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
                         error="${error}"/></li>
             </g:eachError>
         </ul>
     </g:hasErrors>
-    <g:form resource="${this.comment}" method="POST">
+    <g:form resource="${this.workLog}" method="POST">
         <fieldset class="form">
             <div class="fieldcontain">
-                <label for="content"></label>
-                <g:textArea name="content"/>
+                <label for="comment"> Comment</label>
+                <g:textArea name="comment"/>
             </div>
-            <g:hiddenField name="userId"></g:hiddenField>
-            <g:hiddenField name="created"></g:hiddenField>
-            <g:hiddenField name="issue"></g:hiddenField>
+
+            <div class="fieldcontain">
+                <label for="timeSpent"> Time Spent</label>
+                <g:textField name="timeSpent"/>
+            </div>
+
         </fieldset>
         <fieldset class="buttons">
             <g:submitButton name="create" class="save"

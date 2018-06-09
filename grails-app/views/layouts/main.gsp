@@ -32,11 +32,11 @@
             </sec:ifNotLoggedIn>
         </ul>
         <ul class="nav navbar-nav navbar-left">
-            <li><a href="${createLink(uri: '/')}">Home</a></li>
             <li><g:link controller="project" action="index">Projects</g:link></li>
-            <li><g:link controller="issue" action="index">Tasks</g:link></li>
-            <sec:access expression="hasRole('ROLE_ADMIN') || hasRole('ROLE_SUPERUSER')">
+            <li><g:link controller="issue" action="index">Issues</g:link></li>
+            <sec:access expression="hasRole('ROLE_ADMIN')">
                 <li><g:link controller="comment" action="index">Comments</g:link></li>
+                <li><g:link controller="WorkLog" action="index">Work Log</g:link></li>
             </sec:access>
         </ul>
     </div>
@@ -44,8 +44,6 @@
 </div>
 <g:layoutBody/>
 
-%{--<div class="footer" role="contentinfo">Today ( <g:formatDate date="${new java.util.Date()}" type="datetime"--}%
-                                                             %{--style="MEDIUM"></g:formatDate> )</div>--}%
 
 <asset:javascript src="application.js"/>
 

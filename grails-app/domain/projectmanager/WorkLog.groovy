@@ -2,8 +2,10 @@ package projectmanager
 
 class WorkLog {
 
-    Integer userId
+    Long userId
     Date created
     Integer timeSpent
     String comment
+
+    static belongsTo = [issue: Issue]
 }
